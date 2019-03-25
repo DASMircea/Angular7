@@ -1,0 +1,20 @@
+<div *ngIf="collapsed else expanded" class="card" style=" margin-bottom: 10px ">
+    <div class="card-header" style="cursor: pointer;" (click)="collapse()">
+        <h3 style="text-transform: uppercase; color: gray"><i class="fas fa-minus-square" style="color:cadetblue"></i> {{entry.title}}</h3>
+    </div>
+</div>
+<ng-template #expanded>
+  <div id="{{entry.id}}" class="card" style="margin-bottom: 10px ">
+      <div class="card-header" style="cursor: pointer;" (click)="collapse()">
+          <h3 style="text-transform: uppercase; color: gray"><i class="fas fa-plus-square" style="color:orange"></i> {{entry.title}}</h3>
+      </div>
+    <div class="card-body">
+      <div *ngFor="let e of entry.values">
+        <div class="alert alert-{{e.type}}" [innerHTML]="e.value">
+          <i class="fas fa-exclamation-triangle fa-2x" style="color: red" *ngIf="e.type == 'danger'"></i>
+          {{e.value}}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

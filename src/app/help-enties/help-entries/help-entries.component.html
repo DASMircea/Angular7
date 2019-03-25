@@ -1,0 +1,74 @@
+<div class="card" style="margin:10px; padding:5px">
+  <div *ngIf="edit else view">
+    <h1 class="display-4">
+      <i class="fas fa-question-circle" style="color:salmon"></i>
+      <b><input class="form-control inherit" [(ngModel)]="helpEntries.title" placeholder="Title" required
+          style="text-transform:uppercase"></b>
+    </h1>
+    <div class="row">
+      <div class="col-sm-8">
+        <h5>Description:</h5>
+        <textarea autosize class="form-control" [(ngModel)]="helpEntries.description"></textarea>
+      </div>
+      <div class="col-sm-4">
+        <h5>Contents:</h5>
+        <div class="float-left" style="padding: 5px">
+          <ul class="list-group list-group-flush" *ngFor="let e of helpEntries.entries">
+            <a class="btn btn-light" (click)="collapseHelpEntry(e.id)"
+              style="padding-left: 20px; padding-right: 20px; padding-bottom: 2px; padding-top: 2px; margin: 2px"
+              href="#{{e.id}}"><i class="far fa-bookmark"></i> {{e.title}}</a>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div *ngFor="let e of helpEntries.entries">
+      <app-help-entry [entry]=e></app-help-entry>
+    </div>
+
+  </div>
+
+  <ng-template #view>
+    <div class="card-content">
+      <h1 class="display-4"><i class="fas fa-question-circle" style="color:salmon"></i><b
+          style="text-transform:uppercase">{{helpEntries.title}}</b></h1>
+      <div class="row" style="margin: 2px">
+        <div class="col-sm-8">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Description</h5>
+              <p>{{helpEntries.description}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Contents:</h5>
+              <ul class="list-group list-group-flush" *ngFor="let e of helpEntries.entries">
+                <a class="btn btn-light" (click)="collapseHelpEntry(e.id)"
+                  style="padding-left: 20px; padding-right: 20px; padding-bottom: 2px; padding-top: 2px; margin: 2px"
+                  href="#{{e.id}}"><i class="far fa-bookmark"></i> {{e.title}}</a>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngFor="let e of helpEntries.entries">
+        <app-help-entry [entry]=e></app-help-entry>
+      </div>
+    </div>
+  </ng-template>
+
+  <a class="btn btn-secondary" href="#top"
+    style="padding-top:8px; padding-left: 7px; position: fixed; height: 45px; width: 45px; right: 15px; bottom: 15px">
+    <i class="fas fa-home" style="font-size: 28px;"></i>
+  </a>
+
+  <div class="btn-group-vertical float-right"
+    style="padding-top:8px; padding-left: 7px; position: fixed; right: 15px; bottom: 80px">
+    <i *ngIf="!edit" class="btn btn-primary fas fa-edit" (click)="edit=!edit"></i>
+    <i *ngIf="edit" class="btn btn-success fas fa-save"></i>
+    <i *ngIf="edit" class="btn btn-danger fas fa-window-close" (click)="edit=!edit"></i>
+  </div>
+
+</div>
